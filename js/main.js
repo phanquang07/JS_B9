@@ -98,15 +98,20 @@ function themNVMain() {
     setLocalStorage()
   }
 }
-function disableBtn() {
+
+//! Reset Form
+function resetForm() {
+  getELE('formNV').reset()
+  getELE('tknv').disabled = false
   getELE('btnCapNhat').disabled = true
+  getELE('btnThemNV').disabled = false
 }
-getELE('btnThem').onclick = disableBtn
+getELE('btnThem').onclick = resetForm
 
 //! Detail
 function chiTietNVMain(tk) {
-  console.log('chiTiet', tk);
 
+  getELE('btnThemNV').disabled = true
   getELE('btnCapNhat').disabled = false
 
   var viTri = dsnv.timViTri(tk)
@@ -122,8 +127,6 @@ function chiTietNVMain(tk) {
     getELE('luongCB').value = nvTim.luongCoBan
     getELE('chucvu').value = nvTim.chucVu
     getELE('gioLam').value = nvTim.gioLam
-  } else {
-    alert('không tìm thấy')
   }
 }
 
@@ -185,6 +188,7 @@ function xoaNVMain(tk) {
   setLocalStorage(dsnv.mangNV)
 }
 
+//! Search
 function tKtheoLoaiNV() {
   var tuKhoa = getELE('searchName').value
 
