@@ -98,19 +98,23 @@ function themNVMain() {
     setLocalStorage()
   }
 }
-getELE('btnThemNV').onclick = themNVMain
-
+function disableBtn() {
+  getELE('btnCapNhat').disabled = true
+}
+getELE('btnThem').onclick = disableBtn
 
 //! Detail
 function chiTietNVMain(tk) {
   console.log('chiTiet', tk);
+
+  getELE('btnCapNhat').disabled = false
 
   var viTri = dsnv.timViTri(tk)
   if (viTri > -1) {
     var nvTim = dsnv.mangNV[viTri]
 
     getELE('tknv').value = nvTim.taiKhoan
-    getELE('tknv').disable = true
+    getELE('tknv').disabled = true
     getELE('name').value = nvTim.hoTen
     getELE('email').value = nvTim.email
     getELE('password').value = nvTim.matKhau
@@ -135,13 +139,41 @@ function capNhatNVMain(tk) {
   var chucVu = getELE('chucvu').value
   var gioLam = getELE('gioLam').value
 
-  var nv = new NhanVien(taiKhoan, hoTen, email, matKhau, ngayLam, luongCoBan, chucVu, gioLam)
-  nv.calcLuong()
-  nv.xepLoaiNV()
+  //! Validation
+  // Giả sử tất cả các trường đều được nhập hợp lệ
+  var isValid = true
 
-  dsnv.capNhatNV(nv)
-  danhSachNV(dsnv.mangNV)
-  setLocalStorage()
+  // 2. Name: check rỗng, kiểu dữ liệu chữ
+  isValid &= validation.checkEmpty(hoTen, '#tbTen', 'Tên không được để trống')
+    && validation.checkName(hoTen, '#tbTen', 'Tên của bạn phải là chữ')
+
+  isValid &= validation.checkEmpty(email, '#tbEmail', 'Email không được để trống')
+    && validation.checkEmail(email, '#tbEmail', 'Email phải có định dạng ...@gmail.com')
+
+  isValid &= validation.checkEmpty(matKhau, '#tbMatKhau', 'Mật khẩu không được để trống')
+    && validation.checkPassWord(matKhau, '#tbMatKhau', 'Mật khẩu phải có ít nhất 1 chữ số, <br> 1 chữ viết hoa,<br> 1 ký tự đặc biệt,<br> độ dài từ 6 - 10 ký tự')
+
+  isValid &= validation.checkEmpty(ngayLam, '#tbNgay', 'Ngày làm không được để trống')
+    && validation.checkDate(ngayLam, '#tbNgay', 'Ngày làm phải đúng định dạng dd/mm/yyyy')
+
+  isValid &= validation.checkEmpty(luongCoBan, '#tbLuongCB', 'Lương không được để trống')
+    && validation.checkSalary(luongCoBan, '#tbLuongCB', 'Lương giới hạn từ 1 000 000đ - 20 000 000đ')
+
+  isValid &= validation.checkPosition('#chucvu', '#tbChucVu', 'Chức vụ chưa được chọn')
+
+  isValid &= validation.checkEmpty(gioLam, '#tbGiolam', 'Giờ làm không được để trống')
+    && validation.checkWorkTime(gioLam, '#tbGiolam', 'Giờ làm giới hạn từ 80h - 200h')
+
+  // Check t/m tất cả điều kiện
+  if (isValid) {
+    var nv = new NhanVien(taiKhoan, hoTen, email, matKhau, ngayLam, luongCoBan, chucVu, gioLam)
+    nv.calcLuong()
+    nv.xepLoaiNV()
+
+    dsnv.capNhatNV(nv)
+    danhSachNV(dsnv.mangNV)
+    setLocalStorage()
+  }
 }
 
 //! Delete
@@ -152,3 +184,12 @@ function xoaNVMain(tk) {
   danhSachNV(dsnv.mangNV)
   setLocalStorage(dsnv.mangNV)
 }
+
+function tKtheoLoaiNV() {
+  var tuKhoa = getELE('searchName').value
+
+  var mangTK = dsnv.timKiem(tuKhoa.trim())
+
+  danhSachNV(mangTK)
+}
+getELE('searchName').onkeydown = tKtheoLoaiNV

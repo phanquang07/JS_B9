@@ -35,3 +35,17 @@ function DanhSachNV() {
     }
   }
 }
+
+//! Search
+DanhSachNV.prototype.timKiem = function (tuKhoa) {
+  var mangTK = []
+
+  this.mangNV.map((nv) => {
+    var viTriTK = nv.loaiNV.toLowerCase().indexOf(tuKhoa.toLowerCase())
+
+    if (viTriTK !== -1) {
+      mangTK.push(nv)
+    }
+  })
+  return mangTK
+}
