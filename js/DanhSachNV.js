@@ -12,7 +12,7 @@ function DanhSachNV() {
     var viTri = -1
     // Duyệt mảng và so sánh taiKhoan để tìm nv trong mảng
     this.mangNV.map((nv, index) => {
-      if (nv.taikhoan === tk) {
+      if (nv.taiKhoan === tk) {
         viTri = index
       }
     })
@@ -31,7 +31,7 @@ function DanhSachNV() {
   this.xoaNV = (tk) => {
     var viTri = this.timViTri(tk)
     if (viTri > -1) {
-      this.mangNV.slice(viTri, 1)
+      this.mangNV.splice(viTri, 1)
     }
   }
 }

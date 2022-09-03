@@ -35,9 +35,9 @@ function danhSachNV(mangNV) {
           <td>${nv.chucVu}</td>
           <td>${nv.tongLuong}</td>
           <td>${nv.loaiNV}</td>
-          <td style='display: flex'>
-            <button type='button' class='btn btn-info' data-toggle="modal" data-target="#myModal" onclick='detailNV("${nv.taiKhoan}")'>Xem</button>
-            <button type='button' class='btn btn-danger' id='btn-delete' style='margin-left: 4px;' onclick='xoaNV("${nv.taiKhoan}")'>Xóa</button>
+          <td style='display: flex;'>
+            <button type='button' class='btn btn-info' data-toggle='modal' data-target='#myModal' onclick='chiTietNVMain("${nv.taiKhoan}")'>Xem</button>
+            <button type='button' class='btn btn-danger' id='btn-delete' style='margin-left: 4px;' onclick='xoaNVMain("${nv.taiKhoan}")'>Xóa</button>
           </td>
         </tr>
       `
@@ -47,7 +47,7 @@ function danhSachNV(mangNV) {
 
 
 //!  Add NV
-function themNV() {
+function themNVMain() {
   var taiKhoan = getELE('tknv').value
   var hoTen = getELE('name').value
   var email = getELE('email').value
@@ -98,12 +98,12 @@ function themNV() {
     setLocalStorage()
   }
 }
-getELE('btnThemNV').onclick = themNV
+getELE('btnThemNV').onclick = themNVMain
 
 
 //! Detail
-function detailNV(tk) {
-  // console.log('taiKhoan', tk);
+function chiTietNVMain(tk) {
+  console.log('chiTiet', tk);
 
   var viTri = dsnv.timViTri(tk)
   if (viTri > -1) {
@@ -119,21 +119,13 @@ function detailNV(tk) {
     getELE('chucvu').value = nvTim.chucVu
     getELE('gioLam').value = nvTim.gioLam
   } else {
-    console.log('k timf thay');
+    alert('không tìm thấy')
   }
 }
 
 
-//! Reset form 
-function resetForm() {
-  // reset(): chỉ dùng với thẻ form => clear value trên form
-  getELE('formNV').reset()
-  getELE('tknv').disabled = false
-}
-
-
 //! Edit
-function capNhatNV(tk) {
+function capNhatNVMain(tk) {
   var taiKhoan = getELE('tknv').value
   var hoTen = getELE('name').value
   var email = getELE('email').value
@@ -150,15 +142,13 @@ function capNhatNV(tk) {
   dsnv.capNhatNV(nv)
   danhSachNV(dsnv.mangNV)
   setLocalStorage()
-  // resetForm()
 }
 
 //! Delete
-function xoaNV(tk) {
-  // console.log('taiKhoan', tk);
+function xoaNVMain(tk) {
+  console.log('delete', tk);
 
   dsnv.xoaNV(tk)
   danhSachNV(dsnv.mangNV)
   setLocalStorage(dsnv.mangNV)
 }
-getELE('btn-delete').onclick = xoaNV
