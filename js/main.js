@@ -109,7 +109,7 @@ function resetForm() {
 getELE('btnThem').onclick = resetForm
 
 //! Detail
-function chiTietNVMain(tk, spanID) {
+function chiTietNVMain(tk) {
 
   getELE('btnThemNV').style.display = 'none'
   getELE('btnCapNhat').style.display = 'block'
