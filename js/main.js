@@ -103,16 +103,16 @@ function themNVMain() {
 function resetForm() {
   getELE('formNV').reset()
   getELE('tknv').disabled = false
-  getELE('btnCapNhat').disabled = true
-  getELE('btnThemNV').disabled = false
+  getELE('btnCapNhat').style.display = 'none'
+  getELE('btnThemNV').style.display = 'block'
 }
 getELE('btnThem').onclick = resetForm
 
 //! Detail
-function chiTietNVMain(tk) {
+function chiTietNVMain(tk, spanID) {
 
-  getELE('btnThemNV').disabled = true
-  getELE('btnCapNhat').disabled = false
+  getELE('btnThemNV').style.display = 'none'
+  getELE('btnCapNhat').style.display = 'block'
 
   var viTri = dsnv.timViTri(tk)
   if (viTri > -1) {
