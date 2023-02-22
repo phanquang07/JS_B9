@@ -22,7 +22,6 @@ getLocalStorage()
 
 //! DanhSachNV
 function danhSachNV(mangNV) {
-  console.log('mangNV: ', mangNV);
   var content = ''
 
   mangNV.map(function (nv) {
@@ -74,7 +73,7 @@ function themNVMain() {
     && validation.checkEmail(email, '#tbEmail', 'Email phải có định dạng ...@gmail.com')
 
   isValid &= validation.checkEmpty(matKhau, '#tbMatKhau', 'Mật khẩu không được để trống')
-    && validation.checkPassWord(matKhau, '#tbMatKhau', 'Mật khẩu phải có ít nhất 1 chữ số, <br> 1 chữ viết hoa,<br> 1 ký tự đặc biệt,<br> độ dài từ 6 - 10 ký tự')
+    && validation.checkPassWord(matKhau, '#tbMatKhau', 'Mật khẩu phải có ít nhất 1 chữ số, 1 chữ viết hoa, 1 ký tự đặc biệt, độ dài từ 6 - 10 ký tự')
 
   isValid &= validation.checkEmpty(ngayLam, '#tbNgay', 'Ngày làm không được để trống')
     && validation.checkDate(ngayLam, '#tbNgay', 'Ngày làm phải đúng định dạng dd/mm/yyyy')

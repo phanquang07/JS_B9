@@ -83,7 +83,7 @@ function Validation() {
 
   //! Check password
   this.checkPassWord = (inputValue, spanID, message) => {
-    var pattern = /^(?=.*\d)(?=.*[0-9])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,10}$/
+    var pattern = /^(?=.*\d)(?=.*[0-9])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,20}$/
     if (inputValue.match(pattern)) {
       document.querySelector(spanID).innerHTML = ''
       document.querySelector(spanID).style.display = 'none'
